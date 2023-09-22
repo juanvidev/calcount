@@ -1,9 +1,12 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import { PaperProvider, IconButton } from 'react-native-paper';
+import { lightTheme } from '../theme/lightTheme';
+import { darkTheme } from '../theme/darkTheme';
+
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -12,7 +15,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'index',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -20,7 +23,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
 
@@ -42,15 +44,18 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-function RootLayoutNav() {
+const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
+      {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="index" options={{ headerShown: false, presentation: 'containedTransparentModal' }} />
+        <Stack.Screen name="[id]" options={{ animation: 'slide_from_bottom', headerShown: false, presentation: 'containedTransparentModal' }} />
+        <Stack.Screen name="question" options={{ animation: 'slide_from_bottom', headerShadowVisible: false, title: '', presentation: 'containedTransparentModal' }} />
       </Stack>
-    </ThemeProvider>
+      {/* </ThemeProvider> */}
+    </PaperProvider>
   );
 }
