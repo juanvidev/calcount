@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFF',
         padding: 20,
-        width: Dimensions.get('window').width,
     },
 });
 

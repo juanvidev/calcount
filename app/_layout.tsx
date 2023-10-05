@@ -6,6 +6,8 @@ import { useColorScheme } from 'react-native';
 import { PaperProvider, IconButton } from 'react-native-paper';
 import { lightTheme } from '../theme/lightTheme';
 import { darkTheme } from '../theme/darkTheme';
+import { Text } from '../components/Themed';
+import { UIProvider } from '../context/UIProvider';
 
 
 export {
@@ -41,21 +43,39 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    < RootLayoutNav />
+  )
+
 }
 
 const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
-    <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
-      {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false, presentation: 'containedTransparentModal' }} />
-        <Stack.Screen name="[id]" options={{ animation: 'slide_from_bottom', headerShown: false, presentation: 'containedTransparentModal' }} />
-        <Stack.Screen name="question" options={{ animation: 'slide_from_bottom', headerShadowVisible: false, title: '', presentation: 'containedTransparentModal' }} />
-      </Stack>
-      {/* </ThemeProvider> */}
-    </PaperProvider>
+
+    <UIProvider>
+
+      <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
+
+        {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
+        <Stack>
+
+          <Stack.Screen
+            name="index"
+            options={{
+              headerShown: false,
+              presentation: 'containedTransparentModal',
+            }} />
+          <Stack.Screen name="[id]" options={{ animation: 'slide_from_bottom', headerShown: false, presentation: 'containedTransparentModal' }} />
+          <Stack.Screen name="question" options={{ animation: 'slide_from_bottom', headerShadowVisible: false, title: '', presentation: 'containedTransparentModal' }} />
+
+        </Stack>
+        {/* </ThemeProvider> */}
+
+      </PaperProvider >
+
+    </UIProvider>
+
   );
 }

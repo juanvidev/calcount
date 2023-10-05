@@ -1,5 +1,6 @@
 import { useGlobalSearchParams, Stack, useRouter } from "expo-router"
-import { Dimensions, FlatList, Pressable, StatusBar, StyleSheet, View } from "react-native"
+import { useRef } from "react";
+import { Dimensions, FlatList, Pressable, StatusBar, StyleSheet, View, Animated } from 'react-native';
 import { Button, Text } from "react-native-paper"
 
 const ResumeScreen = () => {
@@ -8,6 +9,7 @@ const ResumeScreen = () => {
 
     const params = useGlobalSearchParams();
     console.log(params)
+
     return (
         <View style={styles.container}>
             <View style={styles.wrap}>
@@ -79,7 +81,6 @@ const ResumeScreen = () => {
                         borderWidth: 1,
                         width: 120, height: 60, justifyContent: 'center', alignItems: 'center'
                     }}
-                    onPress={() => { }}
                 >
                     <Text variant="bodyMedium" style={{ color: "#000", fontWeight: 'bold' }}>
                         Finalizar
